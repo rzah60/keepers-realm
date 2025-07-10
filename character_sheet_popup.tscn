@@ -1,0 +1,165 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnlagx8ewd1et"]
+
+[ext_resource type="Script" uid="uid://c4g3t7ymi7kur" path="res://Scripts/CharacterSheetPopup.cs" id="1_dqcvn"]
+
+[node name="CharacterSheetPopup" type="Window" node_paths=PackedStringArray("_nameLabel", "_occupationLabel", "_strLabel", "_dexLabel", "_intLabel", "_conLabel", "_appLabel", "_powLabel", "_sizLabel", "_eduLabel", "_hpBar", "_hpValueLabel", "_sanityBar", "_sanityValueLabel", "_mpBar", "_mpValueLabel", "_luckBar", "_luckValueLabel", "_skillsList", "_weaponsList", "_residenceLabel", "_birthplaceLabel")]
+title = "Character Sheet"
+position = Vector2i(0, 36)
+size = Vector2i(500, 600)
+script = ExtResource("1_dqcvn")
+_nameLabel = NodePath("VBoxContainer/HBoxContainer/Name")
+_occupationLabel = NodePath("VBoxContainer/HBoxContainer/Occupation")
+_strLabel = NodePath("VBoxContainer/GridContainer/STR")
+_dexLabel = NodePath("VBoxContainer/GridContainer/DEX")
+_intLabel = NodePath("VBoxContainer/GridContainer/INT")
+_conLabel = NodePath("VBoxContainer/GridContainer/CON")
+_appLabel = NodePath("VBoxContainer/GridContainer/APP")
+_powLabel = NodePath("VBoxContainer/GridContainer/POW")
+_sizLabel = NodePath("VBoxContainer/GridContainer/SIZ")
+_eduLabel = NodePath("VBoxContainer/GridContainer/EDU")
+_hpBar = NodePath("VBoxContainer/Hit Points/ProgressBar")
+_hpValueLabel = NodePath("VBoxContainer/Hit Points/Label2")
+_sanityBar = NodePath("VBoxContainer/Sanity/ProgressBar")
+_sanityValueLabel = NodePath("VBoxContainer/Sanity/Label2")
+_mpBar = NodePath("VBoxContainer/Magic Points/ProgressBar")
+_mpValueLabel = NodePath("VBoxContainer/Magic Points/Label2")
+_luckBar = NodePath("VBoxContainer/Luck/ProgressBar")
+_luckValueLabel = NodePath("VBoxContainer/Luck/Label2")
+_skillsList = NodePath("VBoxContainer/TabContainer/Skills/ScrollContainer/ItemList")
+_weaponsList = NodePath("VBoxContainer/TabContainer/Combat/ItemList")
+_residenceLabel = NodePath("VBoxContainer/TabContainer/Backstory/Residence")
+_birthplaceLabel = NodePath("VBoxContainer/TabContainer/Backstory/Birthplace")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Occupation" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="STR" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="DEX" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CON" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="APP" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="SIZ" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="POW" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="INT" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="EDU" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Hit Points" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Hit Points"]
+layout_mode = 2
+text = "HP: "
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Hit Points"]
+layout_mode = 2
+show_percentage = false
+
+[node name="Label2" type="Label" parent="VBoxContainer/Hit Points"]
+layout_mode = 2
+
+[node name="Sanity" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Sanity"]
+layout_mode = 2
+text = "Sanity: "
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Sanity"]
+layout_mode = 2
+show_percentage = false
+
+[node name="Label2" type="Label" parent="VBoxContainer/Sanity"]
+layout_mode = 2
+
+[node name="Magic Points" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Magic Points"]
+layout_mode = 2
+text = "MP: "
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Magic Points"]
+layout_mode = 2
+show_percentage = false
+
+[node name="Label2" type="Label" parent="VBoxContainer/Magic Points"]
+layout_mode = 2
+
+[node name="Luck" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Luck"]
+layout_mode = 2
+text = "Luck: "
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Luck"]
+layout_mode = 2
+show_percentage = false
+
+[node name="Label2" type="Label" parent="VBoxContainer/Luck"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Skills" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Skills"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/TabContainer/Skills/ScrollContainer"]
+layout_mode = 2
+
+[node name="Combat" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/TabContainer/Combat"]
+layout_mode = 2
+
+[node name="Backstory" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Residence" type="Label" parent="VBoxContainer/TabContainer/Backstory"]
+layout_mode = 2
+
+[node name="Birthplace" type="Label" parent="VBoxContainer/TabContainer/Backstory"]
+layout_mode = 2

@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3 uid="uid://d13ckq2n4i66h"]
+
+[ext_resource type="Script" uid="uid://beeng1kb3gvpo" path="res://Scripts/Main.cs" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dnlagx8ewd1et" path="res://character_sheet_popup.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Control" node_paths=PackedStringArray("_nameLabel", "_strLabel", "_dexLabel", "_sanityLabel", "_healthLabel", "_npcItemList")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+_nameLabel = NodePath("TabContainer/Investigators/NameLabel")
+_strLabel = NodePath("TabContainer/Investigators/StrLabel")
+_dexLabel = NodePath("TabContainer/Investigators/DexLabel")
+_sanityLabel = NodePath("TabContainer/Investigators/SanityLabel")
+_healthLabel = NodePath("TabContainer/Investigators/HealthLabel")
+_npcItemList = NodePath("TabContainer/NPCs/ScrollContainer/ItemList")
+_characterPopupScene = ExtResource("2_0xm2m")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+
+[node name="Investigators" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="NameLabel" type="Label" parent="TabContainer/Investigators"]
+layout_mode = 2
+
+[node name="StrLabel" type="Label" parent="TabContainer/Investigators"]
+layout_mode = 2
+
+[node name="DexLabel" type="Label" parent="TabContainer/Investigators"]
+layout_mode = 2
+
+[node name="SanityLabel" type="Label" parent="TabContainer/Investigators"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="TabContainer/Investigators"]
+layout_mode = 2
+
+[node name="NPCs" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="TabContainer/NPCs"]
+layout_mode = 2
+text = "Non-Player Characters"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/NPCs"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="TabContainer/NPCs/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="TabContainer/NPCs"]
+layout_mode = 2
+text = "Add New Character"
+
+[node name="Monsters" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Info & Clues" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Locations" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -308.0
+offset_bottom = 31.0
+grow_horizontal = 0
+
+[node name="CampaignNameLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Save Campaign" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Save Campaign"
+
+[node name="Return to Main Menu" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Return to Main Menu"
