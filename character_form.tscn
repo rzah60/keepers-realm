@@ -1,0 +1,254 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct63vskfhgf31"]
+
+[ext_resource type="Script" uid="uid://b6djvfl8cpk7r" path="res://Scripts/CharacterForm.cs" id="1_07hsv"]
+
+[node name="CharacterForm" type="Window" node_paths=PackedStringArray("_nameInput", "_occupationInput", "_playerHBox", "_playerInput", "_affiliationsHBox", "_affiliationsInput", "_ageInput", "_strInput", "_dexInput", "_conInput", "_appInput", "_intInput", "_sizInput", "_powInput", "_eduInput", "_mhpInput", "_mmpInput", "_sanInput", "_lckInput", "_sklInput", "_ntsInput", "_saveButton", "_cancelButton")]
+position = Vector2i(0, 36)
+size = Vector2i(500, 700)
+script = ExtResource("1_07hsv")
+_nameInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/LineEdit")
+_occupationInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit")
+_playerHBox = NodePath("ScrollContainer/VBoxContainer/Player")
+_playerInput = NodePath("ScrollContainer/VBoxContainer/Player/LineEdit")
+_affiliationsHBox = NodePath("ScrollContainer/VBoxContainer/Affiliation")
+_affiliationsInput = NodePath("ScrollContainer/VBoxContainer/Affiliation/LineEdit")
+_ageInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer4/SpinBox")
+_strInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer3/SpinBox")
+_dexInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer5/SpinBox")
+_conInput = NodePath("ScrollContainer/VBoxContainer/Constitution/SpinBox")
+_appInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer6/SpinBox")
+_intInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer9/SpinBox")
+_sizInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer7/SpinBox")
+_powInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer8/SpinBox")
+_eduInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer10/SpinBox")
+_mhpInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer11/SpinBox")
+_mmpInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer12/SpinBox")
+_sanInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer13/SpinBox")
+_lckInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer14/SpinBox")
+_sklInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer16/TextEdit")
+_ntsInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer15/TextEdit")
+_saveButton = NodePath("ScrollContainer/VBoxContainer/SaveButton")
+_cancelButton = NodePath("ScrollContainer/VBoxContainer/CancelButton")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name: "
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Occupation: "
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Player" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Player"]
+layout_mode = 2
+text = "Player: "
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Player"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Affiliation" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Affiliation"]
+layout_mode = 2
+text = "Affiliations: "
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Affiliation"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Age:"
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Strength: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Dexterity: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+
+[node name="Constitution" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Constitution"]
+layout_mode = 2
+text = "Constitution: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/Constitution"]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Appearance: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+text = "Size: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+text = "Power: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+text = "Intelligence: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+text = "Education: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+text = "Max HP: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer12"]
+layout_mode = 2
+text = "Max MP: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer12"]
+layout_mode = 2
+
+[node name="HBoxContainer13" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer13"]
+layout_mode = 2
+text = "Sanity: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer13"]
+layout_mode = 2
+
+[node name="HBoxContainer14" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer14"]
+layout_mode = 2
+text = "Luck: "
+
+[node name="SpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer14"]
+layout_mode = 2
+
+[node name="HBoxContainer16" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer16"]
+layout_mode = 2
+text = "Skills: "
+
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer16"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Skill: 50, Another Skill: 40,..."
+
+[node name="HBoxContainer15" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer15"]
+layout_mode = 2
+text = "Notes: "
+
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer15"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Character Notes..."
+
+[node name="SaveButton" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="CancelButton" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cancel"

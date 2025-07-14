@@ -2,13 +2,18 @@
 
 [ext_resource type="Script" uid="uid://c4g3t7ymi7kur" path="res://Scripts/CharacterSheetPopup.cs" id="1_dqcvn"]
 
-[node name="CharacterSheetPopup" type="Window" node_paths=PackedStringArray("_nameLabel", "_occupationLabel", "_strLabel", "_dexLabel", "_intLabel", "_conLabel", "_appLabel", "_powLabel", "_sizLabel", "_eduLabel", "_hpBar", "_hpValueLabel", "_sanityBar", "_sanityValueLabel", "_mpBar", "_mpValueLabel", "_luckBar", "_luckValueLabel", "_skillsList", "_weaponsList", "_residenceLabel", "_birthplaceLabel")]
+[node name="CharacterSheetPopup" type="Window" node_paths=PackedStringArray("_nameLabel", "_occupationLabel", "_playerLabel", "_affiliationsLabel", "_playerHBox", "_affiliationsHBox", "_ageLabel", "_strLabel", "_dexLabel", "_intLabel", "_conLabel", "_appLabel", "_powLabel", "_sizLabel", "_eduLabel", "_hpBar", "_hpValueLabel", "_sanityBar", "_sanityValueLabel", "_mpBar", "_mpValueLabel", "_luckBar", "_luckValueLabel", "_skillsList", "_weaponsList", "_notesLabel")]
 title = "Character Sheet"
 position = Vector2i(0, 36)
 size = Vector2i(500, 600)
 script = ExtResource("1_dqcvn")
-_nameLabel = NodePath("VBoxContainer/HBoxContainer/Name")
-_occupationLabel = NodePath("VBoxContainer/HBoxContainer/Occupation")
+_nameLabel = NodePath("VBoxContainer/HBoxContainer/NameLbl")
+_occupationLabel = NodePath("VBoxContainer/HBoxContainer/OccupationLbl")
+_playerLabel = NodePath("VBoxContainer/HBoxContainer2/PlayerLbl")
+_affiliationsLabel = NodePath("VBoxContainer/HBoxContainer3/AffiliationsLbl")
+_playerHBox = NodePath("VBoxContainer/HBoxContainer2")
+_affiliationsHBox = NodePath("VBoxContainer/HBoxContainer3")
+_ageLabel = NodePath("VBoxContainer/HBoxContainer/AgeLbl")
 _strLabel = NodePath("VBoxContainer/GridContainer/STR")
 _dexLabel = NodePath("VBoxContainer/GridContainer/DEX")
 _intLabel = NodePath("VBoxContainer/GridContainer/INT")
@@ -18,7 +23,7 @@ _powLabel = NodePath("VBoxContainer/GridContainer/POW")
 _sizLabel = NodePath("VBoxContainer/GridContainer/SIZ")
 _eduLabel = NodePath("VBoxContainer/GridContainer/EDU")
 _hpBar = NodePath("VBoxContainer/Hit Points/ProgressBar")
-_hpValueLabel = NodePath("VBoxContainer/Hit Points/Label2")
+_hpValueLabel = NodePath("VBoxContainer/Hit Points/HP")
 _sanityBar = NodePath("VBoxContainer/Sanity/ProgressBar")
 _sanityValueLabel = NodePath("VBoxContainer/Sanity/Label2")
 _mpBar = NodePath("VBoxContainer/Magic Points/ProgressBar")
@@ -27,8 +32,7 @@ _luckBar = NodePath("VBoxContainer/Luck/ProgressBar")
 _luckValueLabel = NodePath("VBoxContainer/Luck/Label2")
 _skillsList = NodePath("VBoxContainer/TabContainer/Skills/ScrollContainer/ItemList")
 _weaponsList = NodePath("VBoxContainer/TabContainer/Combat/ItemList")
-_residenceLabel = NodePath("VBoxContainer/TabContainer/Backstory/Residence")
-_birthplaceLabel = NodePath("VBoxContainer/TabContainer/Backstory/Birthplace")
+_notesLabel = NodePath("VBoxContainer/TabContainer/Notes/Label")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -40,10 +44,27 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="NameLbl" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Occupation" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="OccupationLbl" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="AgeLbl" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="PlayerLbl" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="AffiliationsLbl" type="Label" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
@@ -77,16 +98,18 @@ layout_mode = 2
 [node name="Hit Points" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Hit Points"]
+[node name="HPLbl" type="Label" parent="VBoxContainer/Hit Points"]
 layout_mode = 2
 text = "HP: "
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Hit Points"]
 layout_mode = 2
+size_flags_horizontal = 2
 show_percentage = false
 
-[node name="Label2" type="Label" parent="VBoxContainer/Hit Points"]
+[node name="HP" type="Label" parent="VBoxContainer/Hit Points"]
 layout_mode = 2
+size_flags_horizontal = 2
 
 [node name="Sanity" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -133,17 +156,21 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 2
 
 [node name="Skills" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Skills"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer/TabContainer/Skills/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Combat" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
 visible = false
@@ -153,13 +180,9 @@ metadata/_tab_index = 1
 [node name="ItemList" type="ItemList" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 
-[node name="Backstory" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
-visible = false
+[node name="Notes" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Residence" type="Label" parent="VBoxContainer/TabContainer/Backstory"]
-layout_mode = 2
-
-[node name="Birthplace" type="Label" parent="VBoxContainer/TabContainer/Backstory"]
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Notes"]
 layout_mode = 2

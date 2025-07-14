@@ -4,8 +4,9 @@ using Godot;
 public partial class CharacterSheetPopup : Window
 {
 	// Export all the UI nodes you just created
-	[Export] private Label _nameLabel, _occupationLabel;
-	[Export] private Label _strLabel, _dexLabel, _intLabel, _conLabel, _appLabel, _powLabel, _sizLabel, _eduLabel;
+	[Export] private Label _nameLabel, _occupationLabel, _playerLabel, _affiliationsLabel;
+	[Export] private HBoxContainer _playerHBox, _affiliationsHBox;
+	[Export] private Label _ageLabel, _strLabel, _dexLabel, _intLabel, _conLabel, _appLabel, _powLabel, _sizLabel, _eduLabel;
 	[Export] private ProgressBar _hpBar;
 	[Export] private Label _hpValueLabel;
 	[Export] private ProgressBar _sanityBar;
@@ -16,8 +17,7 @@ public partial class CharacterSheetPopup : Window
 	[Export] private Label _luckValueLabel;
 	[Export] private ItemList _skillsList;
 	[Export] private ItemList _weaponsList;
-	[Export] private Label _residenceLabel;
-	[Export] private Label _birthplaceLabel;
+	[Export] private Label _notesLabel;
 
 
 	public override void _Ready()
@@ -25,11 +25,24 @@ public partial class CharacterSheetPopup : Window
 		this.CloseRequested += () => Hide(); // Hide popup on 'X' click
 	}
 
-	public void DisplayCharacter(Npc data)
+	public void DisplayCharacter(Entity data)
 	{
+		HideEntitySpecificFields();
 		this.Title = data.Name;
 		_nameLabel.Text = $"Name: {data.Name}";
 		_occupationLabel.Text = $"Occupation: {data.Occupation}";
+
+		switch (data.EntityId)
+		{
+			case Constants.INV_ID:
+				_playerHBox.Show();
+				_playerLabel.Text = $"Player: {((Investigator)data).Player}";
+				break;
+			case Constants.NPC_ID:
+				_affiliationsHBox.Show();
+				_affiliationsLabel.Text = $"Affiliations: {((Npc)data).Affiliations}";
+				break;
+		}
 
 		_strLabel.Text = $"STR: {data.Strength}";
 		_dexLabel.Text = $"DEX: {data.Dexterity}";
@@ -57,16 +70,20 @@ public partial class CharacterSheetPopup : Window
 		_weaponsList.Clear();
 		if (data.Weapons != null)
 		{
-			foreach(var weapon in data.Weapons)
+			foreach (var weapon in data.Weapons)
 			{
 				_weaponsList.AddItem($"{weapon.Name} ({weapon.SkillValue}%) - Dmg: {weapon.Damage}");
 			}
 		}
 
-		_residenceLabel.Text = $"Residence: {data.Residence}";
-		_birthplaceLabel.Text = $"Birthplace: {data.Birthplace}";
+		_notesLabel.Text = $"Notes: {data.Notes}";
 
 		this.PopupCentered();
+	}
+	private void HideEntitySpecificFields()
+	{
+		_playerHBox.Hide();
+		_affiliationsHBox.Hide();
 	}
 
 	private void UpdateBar(ProgressBar bar, Label text, int current, int max)

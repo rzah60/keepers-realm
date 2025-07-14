@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Keeper's Realm"
-run/main_scene="uid://d13ckq2n4i66h"
+run/main_scene="uid://syr4n68rutvc"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+CampaignManager="*res://Scripts/CampaignManager.cs"
 
 [dotnet]
 
