@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://syr4n68rutvc"]
 
-[ext_resource type="Script" uid="uid://bu3hua5yqj5jd" path="res://MainMenu.cs" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://c725kfnk1wqho" path="res://Scripts/MainMenu.cs" id="1_06t4h"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("_newCampaignButton", "_loadCampaignButton")]
 layout_mode = 3

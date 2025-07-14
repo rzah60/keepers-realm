@@ -15,6 +15,7 @@ public partial class Main : Control
 	[Export] private Label _campaignNameLabel;
 	[Export] private Button _saveCampaignButton;
 	[Export] private Button _returnToMenuButton;
+	[Export] private ConfirmationDialog _returnToMenuConfirmDialog;
 
 	private CharacterSheetPopup _characterPopup;
 	private Campaign _currentCampaign;
@@ -42,6 +43,7 @@ public partial class Main : Control
 		_characterPopup.VisibilityChanged += OnPopupVisibilityChanged;
 		_investigatorItemList.ItemSelected += OnInvestigatorItemSelected;
 		_npcItemList.ItemSelected += OnNpcItemSelected;
+		_returnToMenuConfirmDialog.Confirmed += OnReturnToMenuConfirmed;
 
 
 		// --- Create a sample campaign for testing ---
@@ -87,7 +89,7 @@ public partial class Main : Control
 		_investigatorItemList.Clear();
 		foreach (var investigator in _currentCampaign.Investigators)
 		{
-			_npcItemList.AddItem(investigator.Name);
+			_investigatorItemList.AddItem(investigator.Name);
 		}
 	}
 
@@ -102,7 +104,7 @@ public partial class Main : Control
 
 	private void OnInvestigatorItemSelected(long index)
 	{
-		
+
 		Investigator selectedInvestigator = _currentCampaign.Investigators[(int)index];
 		_characterPopup.DisplayCharacter(selectedInvestigator);
 	}
@@ -164,7 +166,7 @@ public partial class Main : Control
 	{
 		// We'll hardcode the path for now.
 		// Later, this will come from a save/load dialog.
-		
+
 		var path = $"res://{_currentCampaign.CampaignName.Replace(" ", "_")}.tres";
 
 		Error err = ResourceSaver.Save(_currentCampaign, path);
@@ -183,39 +185,36 @@ public partial class Main : Control
 	}
 	private void OnReturnToMenuPressed()
 	{
-		// Create a confirmation dialog programmatically.
-		var dialog = new ConfirmationDialog
+		if (_isDirty)
 		{
-			Title = "Return to Menu",
-			DialogText = "Do you want to save the campaign before returning to the main menu?",
-			OkButtonText = "Save and Return",
-			CancelButtonText = "Return without Saving"
-		};
-
-		// Add a third button.
-		dialog.AddButton("Don't Return");
-
-		// Connect the confirmed signal.
-		dialog.Confirmed += () => 
+			// If there are unsaved changes, show the confirmation dialog
+			_returnToMenuConfirmDialog.PopupCentered();
+		}
+		else
 		{
-			SaveCampaign();
-			// Code to return to the main menu scene will go here.
-			// GetTree().ChangeSceneToFile("res://main_menu.tscn");
-			GD.Print("Returning to menu after saving...");
-		};
+			// Otherwise, just go back to the menu without any fuss
+			GetTree().ChangeSceneToFile(Constants.MainMenuScene);
+		}
+	}
 
-		// The signal for custom button presses.
-		dialog.CustomAction += (action) =>
+	private void OnReturnToMenuConfirmed()
+	{
+		// This method is called when the "Return to Menu" button on the dialog is clicked.
+		GetTree().ChangeSceneToFile(Constants.MainMenuScene);
+	}
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationWMCloseRequest)
 		{
-			if (action == "Return without Saving") // This is the text of the button.
+			if (_isDirty)
 			{
-				// Code to return to the main menu scene will go here.
-				// GetTree().ChangeSceneToFile("res://main_menu.tscn");
-				GD.Print("Returning to menu without saving...");
+				_returnToMenuConfirmDialog.PopupCentered();
 			}
-		};
-
-		AddChild(dialog);
-		dialog.PopupCentered();
+			else
+			{
+				GetTree().Quit();
+			}
+		}
 	}
 }

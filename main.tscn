@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dnlagx8ewd1et" path="res://character_sheet_popup.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://ct63vskfhgf31" path="res://character_form.tscn" id="3_h2yge"]
 
-[node name="Main" type="Control" node_paths=PackedStringArray("_investigatorItemList", "_npcItemList", "_addInvestigatorButton", "_addNpcButton", "_campaignNameLabel", "_saveCampaignButton", "_returnToMenuButton")]
+[node name="Main" type="Control" node_paths=PackedStringArray("_investigatorItemList", "_npcItemList", "_addInvestigatorButton", "_addNpcButton", "_campaignNameLabel", "_saveCampaignButton", "_returnToMenuButton", "_returnToMenuConfirmDialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,15 +12,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
-_investigatorItemList = NodePath("TabContainer/Investigators/ScrollContainer/ItemList")
-_npcItemList = NodePath("TabContainer/NPCs/ScrollContainer/ItemList")
+_investigatorItemList = NodePath("TabContainer/Investigators/ScrollContainer/InvestigatorsIL")
+_npcItemList = NodePath("TabContainer/NPCs/ScrollContainer/NPCsIL")
 _characterPopupScene = ExtResource("2_0xm2m")
 _characterFormScene = ExtResource("3_h2yge")
-_addInvestigatorButton = NodePath("TabContainer/Investigators/Button")
-_addNpcButton = NodePath("TabContainer/NPCs/Button")
+_addInvestigatorButton = NodePath("TabContainer/Investigators/AddInvestigatorBtn")
+_addNpcButton = NodePath("TabContainer/NPCs/AddNPCBtn")
 _campaignNameLabel = NodePath("HBoxContainer/CampaignNameLabel")
 _saveCampaignButton = NodePath("HBoxContainer/Save Campaign")
 _returnToMenuButton = NodePath("HBoxContainer/Return to Main Menu")
+_returnToMenuConfirmDialog = NodePath("ReturnToMenuConfirmDialog")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -60,12 +61,12 @@ metadata/_tab_index = 0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="TabContainer/Investigators/ScrollContainer"]
+[node name="InvestigatorsIL" type="ItemList" parent="TabContainer/Investigators/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="TabContainer/Investigators"]
+[node name="AddInvestigatorBtn" type="Button" parent="TabContainer/Investigators"]
 layout_mode = 2
 text = "Add New Investigator"
 
@@ -78,12 +79,12 @@ metadata/_tab_index = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="TabContainer/NPCs/ScrollContainer"]
+[node name="NPCsIL" type="ItemList" parent="TabContainer/NPCs/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="TabContainer/NPCs"]
+[node name="AddNPCBtn" type="Button" parent="TabContainer/NPCs"]
 layout_mode = 2
 text = "Add New NPC"
 
@@ -101,3 +102,8 @@ metadata/_tab_index = 3
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
+
+[node name="ReturnToMenuConfirmDialog" type="ConfirmationDialog" parent="."]
+title = "Confirm"
+ok_button_text = "Return to Menu"
+dialog_text = "Return to the main menu? Any unsaved changes will be lost."
