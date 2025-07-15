@@ -3,6 +3,7 @@ using Godot;
 
 public partial class CharacterSheetPopup : Window
 {
+	[Signal] public delegate void EditCharacterRequestedEventHandler(Entity character);
 	// Export all the UI nodes you just created
 	[Export] private Label _nameLabel, _occupationLabel, _playerLabel, _affiliationsLabel;
 	[Export] private HBoxContainer _playerHBox, _affiliationsHBox;

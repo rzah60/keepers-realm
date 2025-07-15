@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public abstract partial class Entity : Resource
 {
 	// Personal Details from the character sheet
-	public int EntityId { get; }
+	public int EntityId { get; set; }
 	public string Name { get; set; } // [cite: 3]
 	public string Occupation { get; set; } // [cite: 6]
 	public int Age { get; set; } // [cite: 7]
@@ -57,9 +57,11 @@ public abstract partial class Entity : Resource
 		public int Malfunction; // [cite: 136]
 	}
 	public List<WeaponStats> Weapons { get; set; } = new List<WeaponStats>();
-
+	
+	public Entity() {}
+	
 	public Entity(int entityData)
 	{
-		EntityId = entityData;	
+		EntityId = entityData;
 	}
 }

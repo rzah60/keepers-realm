@@ -48,6 +48,10 @@ public partial class Main : Control
 
 		// --- Create a sample campaign for testing ---
 		_currentCampaign = CampaignManager.Instance.CurrentCampaign;
+		UpdateCampaignNameLabel();
+
+		// We replace the direct call to PopulateLists() with this
+		InitializeSceneData();
 
 		// It's good practice to handle the case where the scene is run directly
 		if (_currentCampaign == null)
@@ -77,7 +81,6 @@ public partial class Main : Control
 		// ------------------------------------------
 
 		// Refresh UI with the loaded campaign's data
-		UpdateCampaignNameLabel();
 		RefreshNpcList();
 		RefreshInvestigatorList();
 
@@ -152,6 +155,38 @@ public partial class Main : Control
 		}
 	}
 
+	private void PopulateLists()
+	{
+		_investigatorItemList.Clear();
+		_npcItemList.Clear();
+
+		if (_currentCampaign.Investigators != null)
+		{
+			foreach (var investigator in _currentCampaign.Investigators)
+			{
+				_investigatorItemList.AddItem(investigator.Name);
+			}
+		}
+
+		if (_currentCampaign.Npcs != null)
+		{
+			foreach (var npc in _currentCampaign.Npcs)
+			{
+				_npcItemList.AddItem(npc.Name);
+			}
+		}
+	}
+
+	private async void InitializeSceneData()
+{
+	// This command pauses execution of this method for one frame.
+	// It ensures that the scene change is 100% complete before we proceed.
+	await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+	// Now that we are certain everything is settled, we populate the lists.
+	PopulateLists();
+}
+
 	private void OnPopupVisibilityChanged()
 	{
 		// This method runs when the popup is shown AND when it is hidden.
@@ -168,8 +203,8 @@ public partial class Main : Control
 		// Later, this will come from a save/load dialog.
 
 		var path = $"res://{_currentCampaign.CampaignName.Replace(" ", "_")}.tres";
+		Error err = ResourceSaver.Save(_currentCampaign, path, ResourceSaver.SaverFlags.BundleResources);
 
-		Error err = ResourceSaver.Save(_currentCampaign, path);
 		if (err != Error.Ok)
 		{
 			GD.PrintErr($"Failed to save campaign to {path}.");

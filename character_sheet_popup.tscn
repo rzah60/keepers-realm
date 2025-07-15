@@ -186,3 +186,12 @@ metadata/_tab_index = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/Notes"]
 layout_mode = 2
+
+[node name="EditBtnHBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="VBoxContainer/EditBtnHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit
+"
