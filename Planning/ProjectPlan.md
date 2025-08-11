@@ -2,13 +2,22 @@
 
 ## My Alias
 - When I type 'Status', you will respond with this detailed project plan.
+- When I type 'UpdateMd', you will generate the complete text for this file.
+
+## New Session Workflow
+1.  **The Plan**: Start the new chat by sending **only** the `ProjectPlan.md` file.
+2.  **The Godot Backend**: In a second message, attach **all** up-to-date Godot script (`.cs`) and scene (`.tscn`) files.
+3.  **The React Frontend**: In a third message, attach **only the essential source files** from the React project: the `package.json` file and all files from the `src` folder.
+
+## External Knowledge
+- If we are working on a specific feature, I may provide you with links to official documentation (e.g., Godot, C#, React) or pages from supplemental RPG sourcebooks (e.g., Malleus Monstrorum) to enhance your knowledge.
 
 ## Coding Style & Consistency
-1. C# attributes ([Export], [Signal], etc.) must be on the same line as the member they decorate.
-2. Private fields must use _camelCase.
-3. Methods, public properties, and signals must use PascalCase.
-4. When modifying existing methods, you must preserve the exact original variable and parameter names unless changing that name is the explicit goal of the instruction.
-5. Before referencing a method in your instructions, you must first verify it exists in the provided project files. If it does not exist, you must explicitly provide the full code for its creation as the first step. You must not assume methods have been created in prior steps.
+1.  C# attributes (`[Export]`, `[Signal]`, etc.) must be on the same line as the member they decorate.
+2.  Private fields must use `_camelCase`.
+3.  Methods, public properties, and signals must use `PascalCase`.
+4.  When modifying existing methods, you must preserve the exact original variable and parameter names.
+5.  Before referencing a method in your instructions, you must first verify it exists in the provided project files. If it does not exist, you must explicitly provide the full code for its creation.
 
 ---
 
@@ -16,59 +25,52 @@
 
 ### ✅ Phase 1: Main Menu & Campaign Management
 * **Status:** Done
-* **Details:**
-    * ✅ A functional `main_menu.tscn` scene exists.
-    * ✅ "New Campaign" and "Load Campaign" buttons are fully implemented.
-    * ✅ The `Campaign.cs` Resource class is defined and used as the central data container.
-    * ✅ The system for saving and loading Campaign resources is in place and functional.
-    * ✅ The "Return to Main Menu" button correctly uses a dirty flag to conditionally show a confirmation dialog.
 
 ### ✅ Phase 2: The Core Campaign Tracker
 * **Status:** Done
-* **Details:**
-    * ✅ The tabbed interface (`TabContainer`) is implemented in `main.tscn`.
-    * ✅ Scrollable `ItemList`s for Investigators and NPCs are implemented and correctly populated upon creation.
-    * ✅ "Add New..." buttons successfully open the `CharacterForm` for entity creation.
-    * ✅ Double-clicking an item in a list correctly opens the `CharacterSheetPopup` with detailed information.
-    * ✅ The main UI correctly shows the campaign's name (with `*` for unsaved changes), a "Save" button, and the "Return to Main Menu" button.
 
-### 🟡 Phase 3: In-App Entity Management
-* **Status:** In Progress / Partially Implemented
-* **Details:**
-    * ✅ **Entity Creation:** The `CharacterForm` is functional for creating new Investigators and NPCs.
-    * ⚫ **Data Display on Load:**
-        * ⚫ Create a public method in `Main.cs` to populate the Investigator and NPC lists from the current campaign data.
-        * ⚫ Modify `MainMenu.cs` to call this new method after successfully loading a campaign.
-    * ⚫ **Entity Editing:**
-        * ⚫ Add an "Edit" button to the `CharacterSheetPopup`.
-        * ⚫ Create a method in `CharacterForm.cs` to populate its fields with an existing entity's data.
-        * ⚫ Update the save logic in `CharacterForm.cs` to handle modifying an existing entity.
-    * ⚫ **Entity Deletion:**
-        * ⚫ Add "Delete" buttons to the Investigator and NPC tabs.
-        * ⚫ Implement a confirmation dialog for deletion.
-        * ⚫ Write the logic to remove the selected entity from the campaign data and update the UI.
-    * ✅ **Data Persistence:** The Investigator and NPC lists are confirmed to save correctly as part of the `Campaign` resource file.
+### ✅ Phase 3: In-App Entity Management
+* **Status:** Done
 
-### ⚫ Phase 4: Networking and Session Management
+### ✅ Phase 4: Backend API & Session Management
+* **Status:** Done
+
+### 🟡 Phase 5: React Player Frontend
+* **Status:** In Progress
+* **Details:**
+    * ✅ Set up the React project with TypeScript.
+    * ✅ Created the "Login" component to validate session codes via the API.
+    * ✅ Established and manage the WebSocket connection.
+    * ✅ Created a "Character Selection" component that displays the list of investigators.
+    * ✅ Implemented logic to send the player's character choice to the server.
+    * ✅ Created a "Character Sheet" component to display the detailed character data.
+    * 🟡 Implemented state management (using React Hooks).
+    * ⚫ Style all components for a clean and professional presentation using CSS.
+
+### ⚫ Phase 6: Information Control & Player View (Real-time)
 * **Status:** Not Started
 * **Details:**
-    * ⚫ No networking components (server/client logic) have been added to the project.
+    * ⚫ Implement logic for the GM to "push" updates (e.g., HP changes, status effects) to specific players.
+    * ⚫ The React frontend will listen for WebSocket messages and dynamically update the Character Sheet component.
+    * ⚫ The server will only send "revealed" data to player clients based on GM controls.
 
-### ⚫ Phase 5: Information Control & Player View
+### ⚫ Phase 7: Mobile-Friendly Player View
 * **Status:** Not Started
 * **Details:**
-    * ⚫ No GM-side controls for revealing or hiding information exist.
-    * ⚫ No player-specific view has been designed or implemented.
+    * ⚫ Use responsive CSS techniques to ensure the React components are usable on mobile devices.
+    * ⚫ Test and refine the layout for common phone and tablet screen sizes.
 
-### ⚫ Phase 6: Map Creation & Linking
+### ⚫ Phase 8: Map Creation & Linking
 * **Status:** Not Started
 * **Details:**
-    * ⚫ No TileMap-based map editor scene has been created.
-    * ⚫ A system for importing map sprites has not been implemented.
-    * ⚫ The `Campaign` resource has no data structures for storing or linking to map files.
+    * ⚫ Implement a TileMap-based map editor scene within the Godot application.
+    * ⚫ Create a system for importing map sprites and tilesets.
+    * ⚫ Associate saved maps with a specific "Location" entry within a Campaign.
 
-### ⚫ Phase 7: Interactive Map Overlays
+### ⚫ Phase 9: Interactive Map Overlays
 * **Status:** Not Started
 * **Details:**
-    * ⚫ Logic for adding dynamic elements like tokens or markers to a map is not implemented.
-    * ⚫ The data structure for saving the state of map overlays does not exist.
+    * ⚫ Allow GMs to add dynamic elements (tokens, markers) to a map.
+    * ⚫ Implement functionality for the GM to control the visibility and position of tokens.
+    * ⚫ Save the state of these tokens as part of the Location data.
+    * ⚫ (Advanced) Send map and token data to player clients for a shared tactical view.

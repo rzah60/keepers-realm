@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        // {
+        //     "label": "build",
+        //     "command": "c:\\Users\\rzah6\\Godot\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+        //     "type": "process",
+        //     "args": [
+        //         "--build-solutions",
+        //         "--path",
+        //         "${workspaceRoot}",
+        //         "--no-window",
+        //         "-q"
+        //     ],
+        //     "problemMatcher": "$msCompile"
+        // },
+        {
+			"type": "dotnet",
+			"task": "build",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "build"
+		}
+    ]
+}

@@ -3,4 +3,4 @@
 /android/
 *.translation
 *.tres
-*.cs.uid
+*.uid
