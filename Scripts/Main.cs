@@ -1,6 +1,7 @@
 // Main.cs
 using Godot;
-using System.Collections.Generic; // Needed for using Lists
+using System.Collections.Generic;
+using System.IO; // Needed for using Lists
 
 public partial class Main : Control
 {
@@ -16,11 +17,19 @@ public partial class Main : Control
 	[Export] private Button _saveCampaignButton;
 	[Export] private Button _returnToMenuButton;
 	[Export] private ConfirmationDialog _returnToMenuConfirmDialog;
+	[Export] private Button _deleteInvestigatorButton;
+	[Export] private Button _deleteNpcButton;
+	[Export] private ConfirmationDialog _deleteConfirmDialog;
+	[Export] private Button _hostSessionButton;
+	[Export] private Label _sessionInfoLabel;
 
 	private CharacterSheetPopup _characterPopup;
 	private Campaign _currentCampaign;
 	private CharacterForm _characterForm;
 	private bool _isDirty = false;
+	private Entity _entityToDelete;
+	private NetworkManager _networkManager;
+
 	// The _Ready() function is called by Godot when the node and its children
 	// are ready. It's the perfect place for setup.
 	public override void _Ready()
@@ -35,8 +44,11 @@ public partial class Main : Control
 		AddChild(_characterForm);
 		_characterForm.Hide();
 
+		// Get the singleton instance
+	_networkManager = GetNode<NetworkManager>("/root/NetworkManager");
+
 		_addInvestigatorButton.Pressed += OnAddInvestigatorButtonPressed;
-		_characterForm.CharacterSaved += OnCharacterFormSaved;
+		_characterForm.CharacterSaved += OnCharacterSaved;
 		_addNpcButton.Pressed += OnAddNpcButtonPressed;
 		_saveCampaignButton.Pressed += SaveCampaign;
 		_returnToMenuButton.Pressed += OnReturnToMenuPressed;
@@ -44,7 +56,11 @@ public partial class Main : Control
 		_investigatorItemList.ItemSelected += OnInvestigatorItemSelected;
 		_npcItemList.ItemSelected += OnNpcItemSelected;
 		_returnToMenuConfirmDialog.Confirmed += OnReturnToMenuConfirmed;
-
+		_characterPopup.EditCharacterRequested += OnEditCharacterRequested;
+		_deleteInvestigatorButton.Pressed += OnDeleteInvestigatorButtonPressed;
+		_deleteNpcButton.Pressed += OnDeleteNpcButtonPressed;
+		_deleteConfirmDialog.Confirmed += OnDeleteConfirmed;
+		_hostSessionButton.Pressed += OnHostSessionButtonPressed;
 
 		// --- Create a sample campaign for testing ---
 		_currentCampaign = CampaignManager.Instance.CurrentCampaign;
@@ -124,24 +140,96 @@ public partial class Main : Control
 	{
 		_characterForm.CreateNewCharacter(Constants.NPC_ID);
 	}
-
-	private void OnCharacterFormSaved(Entity entityData)
+	private void OnDeleteInvestigatorButtonPressed()
 	{
-		_isDirty = true; // Mark that we have unsaved changes
-		UpdateCampaignNameLabel(); // Update the UI to show the unsaved state
-		switch (entityData.EntityId)
-		{
-			case Constants.INV_ID:
-				_currentCampaign.Investigators.Add((Investigator)entityData);
-				RefreshInvestigatorList();
-				break;
-			case Constants.NPC_ID:
-				_currentCampaign.Npcs.Add((Npc)entityData);
-				RefreshNpcList();
-				break;
-		}
+		var selectedItems = _investigatorItemList.GetSelectedItems();
+		if (selectedItems.Length == 0) return; // Do nothing if nothing is selected
+
+		int index = selectedItems[0];
+		_entityToDelete = _currentCampaign.Investigators[index];
+		_deleteConfirmDialog.PopupCentered();
 	}
 
+	private void OnDeleteNpcButtonPressed()
+	{
+		var selectedItems = _npcItemList.GetSelectedItems();
+		if (selectedItems.Length == 0) return;
+
+		int index = selectedItems[0];
+		_entityToDelete = _currentCampaign.Npcs[index];
+		_deleteConfirmDialog.PopupCentered();
+	}
+
+	private void OnHostSessionButtonPressed()
+	{
+		_networkManager.CreateServer();
+		_hostSessionButton.Disabled = true;
+		_hostSessionButton.Text = "Hosting...";
+
+		string hostIp = "127.0.0.1";
+
+		// Get the code from the NetworkManager and update the label text
+		string sessionCode = _networkManager.SessionCode;
+		_sessionInfoLabel.Text = $"URL: http://{hostIp}:8080  |  Code: {sessionCode}";
+	}
+	private void OnEditCharacterRequested(Entity character)
+	{
+		_characterForm.PopupToEdit(character);
+	}
+
+	private void OnCharacterSaved(Entity entityData)
+	{
+		// This logic handles both adding a new entity and updating an existing one.
+		if (entityData is Investigator investigator)
+		{
+			if (!_currentCampaign.Investigators.Contains(investigator))
+			{
+				_currentCampaign.Investigators.Add(investigator);
+			}
+		}
+		else if (entityData is Npc npc)
+		{
+			if (!_currentCampaign.Npcs.Contains(npc))
+			{
+				_currentCampaign.Npcs.Add(npc);
+			}
+		}
+
+		// --- ADD THIS SECTION ---
+		// If the saved character is an Investigator, push the update over the network.
+		// We use the static Instance of NetworkManager to call the method.
+		if (entityData is Investigator savedInvestigator)
+		{
+			NetworkManager.Instance.UpdatePlayerCharacter(savedInvestigator);
+		}
+		// --- END OF NEW SECTION ---
+
+		RefreshNpcList();
+		RefreshInvestigatorList();
+		_isDirty = true;
+		UpdateCampaignNameLabel();
+	}
+	private void OnDeleteConfirmed()
+	{
+		if (_entityToDelete == null) return;
+
+		if (_entityToDelete is Investigator investigator)
+		{
+			_currentCampaign.Investigators.Remove(investigator);
+		}
+		else if (_entityToDelete is Npc npc)
+		{
+			_currentCampaign.Npcs.Remove(npc);
+		}
+
+		// Mark campaign as dirty and refresh the UI
+		_isDirty = true;
+		UpdateCampaignNameLabel();
+		PopulateLists();
+
+		// Clear the entity to delete to reset the state
+		_entityToDelete = null;
+	}
 	private void UpdateCampaignNameLabel()
 	{
 		var campaignName = CampaignManager.Instance.CurrentCampaign.CampaignName;
@@ -203,7 +291,7 @@ public partial class Main : Control
 		// Later, this will come from a save/load dialog.
 
 		var path = $"res://{_currentCampaign.CampaignName.Replace(" ", "_")}.tres";
-		Error err = ResourceSaver.Save(_currentCampaign, path, ResourceSaver.SaverFlags.BundleResources);
+		Error err = ResourceSaver.Save(_currentCampaign, path);
 
 		if (err != Error.Ok)
 		{

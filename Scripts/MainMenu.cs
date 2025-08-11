@@ -51,11 +51,11 @@ public partial class MainMenu : Control
 
 		dialog.FileSelected += (string path) =>
 		{
-			var loadedCampaign = ResourceLoader.Load<Campaign>(path);
+			var loadedCampaign = ResourceLoader.Load(path, "Campaign");
 			if (loadedCampaign != null)
 			{
 				// Store the loaded campaign in our global manager's instance
-				CampaignManager.Instance.CurrentCampaign = loadedCampaign;
+				CampaignManager.Instance.CurrentCampaign = (Campaign)loadedCampaign;
 				// Switch to the main tracker scene
 				GetTree().ChangeSceneToFile("res://main.tscn");
 			}
@@ -64,7 +64,6 @@ public partial class MainMenu : Control
 				GD.PrintErr($"Failed to load campaign file at: {path}");
 			}
 		};
-
 		AddChild(dialog);
 		dialog.PopupCentered();
 	}

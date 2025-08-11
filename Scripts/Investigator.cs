@@ -4,6 +4,6 @@ using Godot;
 [GlobalClass]
 public partial class Investigator : Entity
 {
-	public string Player { get; set; }
+	[Export] public string Player { get; set; }
 	public Investigator() : base(Constants.INV_ID) {}
 }

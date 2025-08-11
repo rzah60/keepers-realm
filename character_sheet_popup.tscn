@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://dnlagx8ewd1et"]
 
-[ext_resource type="Script" uid="uid://c4g3t7ymi7kur" path="res://Scripts/CharacterSheetPopup.cs" id="1_dqcvn"]
+[ext_resource type="Script" uid="uid://dggnwe8cos3s0" path="res://Scripts/CharacterSheetPopup.cs" id="1_dqcvn"]
 
-[node name="CharacterSheetPopup" type="Window" node_paths=PackedStringArray("_nameLabel", "_occupationLabel", "_playerLabel", "_affiliationsLabel", "_playerHBox", "_affiliationsHBox", "_ageLabel", "_strLabel", "_dexLabel", "_intLabel", "_conLabel", "_appLabel", "_powLabel", "_sizLabel", "_eduLabel", "_hpBar", "_hpValueLabel", "_sanityBar", "_sanityValueLabel", "_mpBar", "_mpValueLabel", "_luckBar", "_luckValueLabel", "_skillsList", "_weaponsList", "_notesLabel")]
+[node name="CharacterSheetPopup" type="Window" node_paths=PackedStringArray("_nameLabel", "_occupationLabel", "_playerLabel", "_affiliationsLabel", "_playerHBox", "_affiliationsHBox", "_ageLabel", "_strLabel", "_dexLabel", "_intLabel", "_conLabel", "_appLabel", "_powLabel", "_sizLabel", "_eduLabel", "_hpBar", "_hpValueLabel", "_sanityBar", "_sanityValueLabel", "_mpBar", "_mpValueLabel", "_luckBar", "_luckValueLabel", "_skillsList", "_weaponsList", "_notesLabel", "_editButton")]
 title = "Character Sheet"
 position = Vector2i(0, 36)
 size = Vector2i(500, 600)
@@ -33,6 +33,7 @@ _luckValueLabel = NodePath("VBoxContainer/Luck/Label2")
 _skillsList = NodePath("VBoxContainer/TabContainer/Skills/ScrollContainer/ItemList")
 _weaponsList = NodePath("VBoxContainer/TabContainer/Combat/ItemList")
 _notesLabel = NodePath("VBoxContainer/TabContainer/Notes/Label")
+_editButton = NodePath("VBoxContainer/EditBtnHBox/EditButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15

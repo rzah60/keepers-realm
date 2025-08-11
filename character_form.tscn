@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://ct63vskfhgf31"]
 
-[ext_resource type="Script" uid="uid://b6djvfl8cpk7r" path="res://Scripts/CharacterForm.cs" id="1_07hsv"]
+[ext_resource type="Script" uid="uid://d4xk577qo1w7" path="res://Scripts/CharacterForm.cs" id="1_07hsv"]
 
-[node name="CharacterForm" type="Window" node_paths=PackedStringArray("_nameInput", "_occupationInput", "_playerHBox", "_playerInput", "_affiliationsHBox", "_affiliationsInput", "_ageInput", "_strInput", "_dexInput", "_conInput", "_appInput", "_intInput", "_sizInput", "_powInput", "_eduInput", "_mhpInput", "_mmpInput", "_sanInput", "_lckInput", "_sklInput", "_ntsInput", "_saveButton", "_cancelButton")]
+[node name="CharacterForm" type="Window" node_paths=PackedStringArray("_nameInput", "_occupationInput", "_playerHBox", "_playerInput", "_affiliationsHBox", "_affiliationsInput", "_ageInput", "_strInput", "_dexInput", "_conInput", "_appInput", "_intInput", "_sizInput", "_powInput", "_eduInput", "_mhpInput", "_mmpInput", "_sanInput", "_lckInput", "_sklInput", "_notesInput", "_saveButton", "_cancelButton")]
 position = Vector2i(0, 36)
 size = Vector2i(500, 700)
 script = ExtResource("1_07hsv")
@@ -26,7 +26,7 @@ _mmpInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer12/SpinBox")
 _sanInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer13/SpinBox")
 _lckInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer14/SpinBox")
 _sklInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer16/TextEdit")
-_ntsInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer15/TextEdit")
+_notesInput = NodePath("ScrollContainer/VBoxContainer/HBoxContainer15/TextEdit")
 _saveButton = NodePath("ScrollContainer/VBoxContainer/SaveButton")
 _cancelButton = NodePath("ScrollContainer/VBoxContainer/CancelButton")
 

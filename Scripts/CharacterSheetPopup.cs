@@ -4,7 +4,7 @@ using Godot;
 public partial class CharacterSheetPopup : Window
 {
 	[Signal] public delegate void EditCharacterRequestedEventHandler(Entity character);
-	// Export all the UI nodes you just created
+
 	[Export] private Label _nameLabel, _occupationLabel, _playerLabel, _affiliationsLabel;
 	[Export] private HBoxContainer _playerHBox, _affiliationsHBox;
 	[Export] private Label _ageLabel, _strLabel, _dexLabel, _intLabel, _conLabel, _appLabel, _powLabel, _sizLabel, _eduLabel;
@@ -19,19 +19,26 @@ public partial class CharacterSheetPopup : Window
 	[Export] private ItemList _skillsList;
 	[Export] private ItemList _weaponsList;
 	[Export] private Label _notesLabel;
+	[Export] private Button _editButton;
 
+	private Entity _character;
 
 	public override void _Ready()
 	{
-		this.CloseRequested += () => Hide(); // Hide popup on 'X' click
+		this.CloseRequested += () => Hide();
+		_editButton.Pressed += OnEditButtonPressed;
 	}
 
 	public void DisplayCharacter(Entity data)
 	{
+		_character = data; // Store the character for the edit button to use
+
 		HideEntitySpecificFields();
 		this.Title = data.Name;
 		_nameLabel.Text = $"Name: {data.Name}";
 		_occupationLabel.Text = $"Occupation: {data.Occupation}";
+		_ageLabel.Text = $"Age: {data.Age}";
+		_notesLabel.Text = data.Notes;
 
 		switch (data.EntityId)
 		{
@@ -73,24 +80,29 @@ public partial class CharacterSheetPopup : Window
 		{
 			foreach (var weapon in data.Weapons)
 			{
-				_weaponsList.AddItem($"{weapon.Name} ({weapon.SkillValue}%) - Dmg: {weapon.Damage}");
+				_weaponsList.AddItem($"{weapon.Name}: {weapon.SkillValue}%");
 			}
 		}
 
-		_notesLabel.Text = $"Notes: {data.Notes}";
-
-		this.PopupCentered();
+		PopupCentered();
 	}
+
+	private void OnEditButtonPressed()
+	{
+		EmitSignal(SignalName.EditCharacterRequested, _character);
+		Hide();
+	}
+
 	private void HideEntitySpecificFields()
 	{
 		_playerHBox.Hide();
 		_affiliationsHBox.Hide();
 	}
 
-	private void UpdateBar(ProgressBar bar, Label text, int current, int max)
+	private void UpdateBar(ProgressBar bar, Label label, int current, int max)
 	{
 		bar.MaxValue = max;
 		bar.Value = current;
-		text.Text = $"{current} / {max}";
+		label.Text = $"{current}/{max}";
 	}
 }

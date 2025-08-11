@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://d13ckq2n4i66h"]
 
-[ext_resource type="Script" uid="uid://beeng1kb3gvpo" path="res://Scripts/Main.cs" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://ovg8rxsi2lsa" path="res://Scripts/Main.cs" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dnlagx8ewd1et" path="res://character_sheet_popup.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://ct63vskfhgf31" path="res://character_form.tscn" id="3_h2yge"]
 
-[node name="Main" type="Control" node_paths=PackedStringArray("_investigatorItemList", "_npcItemList", "_addInvestigatorButton", "_addNpcButton", "_campaignNameLabel", "_saveCampaignButton", "_returnToMenuButton", "_returnToMenuConfirmDialog")]
+[node name="Main" type="Control" node_paths=PackedStringArray("_investigatorItemList", "_npcItemList", "_addInvestigatorButton", "_addNpcButton", "_campaignNameLabel", "_saveCampaignButton", "_returnToMenuButton", "_returnToMenuConfirmDialog", "_deleteInvestigatorButton", "_deleteNpcButton", "_deleteConfirmDialog", "_hostSessionButton", "_sessionInfoLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,30 +18,44 @@ _characterPopupScene = ExtResource("2_0xm2m")
 _characterFormScene = ExtResource("3_h2yge")
 _addInvestigatorButton = NodePath("TabContainer/Investigators/AddInvestigatorBtn")
 _addNpcButton = NodePath("TabContainer/NPCs/AddNPCBtn")
-_campaignNameLabel = NodePath("HBoxContainer/CampaignNameLabel")
-_saveCampaignButton = NodePath("HBoxContainer/Save Campaign")
-_returnToMenuButton = NodePath("HBoxContainer/Return to Main Menu")
+_campaignNameLabel = NodePath("CampaignHBox/CampaignNameLabel")
+_saveCampaignButton = NodePath("CampaignHBox/Save Campaign")
+_returnToMenuButton = NodePath("CampaignHBox/Return to Main Menu")
 _returnToMenuConfirmDialog = NodePath("ReturnToMenuConfirmDialog")
+_deleteInvestigatorButton = NodePath("TabContainer/Investigators/DeleteInvestigatorBtn")
+_deleteNpcButton = NodePath("TabContainer/NPCs/DeleteNpcBtn")
+_deleteConfirmDialog = NodePath("DeleteConfirmDialog")
+_hostSessionButton = NodePath("CampaignHBox/HostSession")
+_sessionInfoLabel = NodePath("CampaignHBox/SessionInfoLabel")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="CampaignHBox" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
 
-[node name="CampaignNameLabel" type="Label" parent="HBoxContainer"]
+[node name="CampaignNameLabel" type="Label" parent="CampaignHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Campaign: "
 
-[node name="Save Campaign" type="Button" parent="HBoxContainer"]
+[node name="Save Campaign" type="Button" parent="CampaignHBox"]
 layout_mode = 2
 text = "Save Campaign"
 
-[node name="Return to Main Menu" type="Button" parent="HBoxContainer"]
+[node name="Return to Main Menu" type="Button" parent="CampaignHBox"]
 layout_mode = 2
 text = "Return to Main Menu"
+
+[node name="HostSession" type="Button" parent="CampaignHBox"]
+layout_mode = 2
+text = "Host Session"
+
+[node name="SessionInfoLabel" type="Label" parent="CampaignHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "(Not Hosting)"
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -70,6 +84,10 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "Add New Investigator"
 
+[node name="DeleteInvestigatorBtn" type="Button" parent="TabContainer/Investigators"]
+layout_mode = 2
+text = "Delete Investigator"
+
 [node name="NPCs" type="VBoxContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -87,6 +105,10 @@ size_flags_vertical = 3
 [node name="AddNPCBtn" type="Button" parent="TabContainer/NPCs"]
 layout_mode = 2
 text = "Add New NPC"
+
+[node name="DeleteNpcBtn" type="Button" parent="TabContainer/NPCs"]
+layout_mode = 2
+text = "Delete NPC"
 
 [node name="Monsters" type="VBoxContainer" parent="TabContainer"]
 visible = false
@@ -107,3 +129,7 @@ metadata/_tab_index = 4
 title = "Confirm"
 ok_button_text = "Return to Menu"
 dialog_text = "Return to the main menu? Any unsaved changes will be lost."
+
+[node name="DeleteConfirmDialog" type="ConfirmationDialog" parent="."]
+title = "Confirm Deletion"
+dialog_text = "Are you sure you want to permanently delete this character? This action cannot be undone."
