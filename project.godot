@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CampaignManager="*res://Scripts/CampaignManager.cs"
+NetworkManager="*res://Scripts/NetworkManager.cs"
 
 [dotnet]
 
